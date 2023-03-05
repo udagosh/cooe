@@ -3,6 +3,7 @@ import {auth} from 'express-oauth2-jwt-bearer'
 import cors from 'cors'
 import methodOverride from 'method-override'
 import userRouter from './routes/user.router.js'
+import gameRouter from './routes/game.router.js'
 
 const jwtCheck = auth({
     audience: process.env.AUTH0_AUDIENCE,
@@ -34,6 +35,7 @@ app.use((req,res,next) => {
 })
 
 app.use("user", userRouter)
+app.use("game", gameRouter)
 
 app.all('*', next => {
     next(new ExpressError("PAGE NOT FOUND", 404))

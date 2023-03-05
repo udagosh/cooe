@@ -1,6 +1,6 @@
 import express from 'express'
 import {client} from '../dbClient.js'
-import { userSchema } from '../schemas.js'
+import { userSchema } from '../db-utils/schemas.js'
 import catchAsync from '../utils/catchAsync.js'
 import ExpressError from '../utils/ExpressError.js'
 const userRouter = express.Router()
