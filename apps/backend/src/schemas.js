@@ -2,7 +2,7 @@ import {z} from 'zod'
 
 const userSchema = z.object({
     "user_id": z.string(),
-    "email": z.email(),
+    "email": z.string().email(),
     "address": z.object({
         "fullname": z.string().max(30, {message: "name must be less than 30 characters"}),
         "mobile": z.number().int().positive().finite(),

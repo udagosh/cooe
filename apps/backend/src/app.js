@@ -4,14 +4,12 @@ import cors from 'cors'
 import methodOverride from 'method-override'
 import userRouter from './routes/user.router.js'
 
-
 const jwtCheck = auth({
     audience: process.env.AUTH0_AUDIENCE,
     issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}/`,
-    tokenSigningAlg: 'RS256'
+    tokenSigningAlg: 'RS256',
+    
 })
-
-
 
 const app = express()
 
@@ -26,7 +24,7 @@ app.use(cors({
 
 // then parse the payload and the method
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({"extended": false}))
 app.use(methodOverride())
 
 // authorize
@@ -37,16 +35,18 @@ app.use((req,res,next) => {
 
 app.use("user", userRouter)
 
-app.all('*', (_, _, next) => {
+app.all('*', next => {
     next(new ExpressError("PAGE NOT FOUND", 404))
 });
 
 
 
-app.use((err, _, res, _) => {
+app.use((err, _, res, __) => {
     const { statusCode = 500, message = "Something went wrong" } = err;
     res.status(statusCode).render('error', { message });
 })
+
+
 
 
 
