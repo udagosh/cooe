@@ -12,6 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     authorizationParams={{
       redirect_uri: window.location.origin,
     }}
+    redi
     audience={import.meta.env.VITE_AUTH0_API_AUDIENCE}
   >
     <App />

@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
+import { useAuth0 } from "@auth0/auth0-react";
+import { registerUser } from "../../../utils/user.utils";
 function Home() {
+  const { getAccessTokenSilently, user } = useAuth0();
+
+  useEffect(() => {
+    console.log(import.meta.env.VITE_AUTH0_API_AUDIENCE)
+    getAccessTokenSilently().then(token => {
+      registerUser(user, token).then(console.log).catch(console.error)
+    }).catch(console.error)
+  }, [getAccessTokenSilently, user]);
+
   return (
     <>
       <div className="amuse-box">

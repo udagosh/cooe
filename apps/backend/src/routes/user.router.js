@@ -8,7 +8,7 @@ const userRouter = express.Router()
 
 userRouter.post("/register", catchAsync(async (req, res) => {
     try {
-        
+        console.log("user register")
         await saveUser(req.body)
         res.status(201).send("user created succesfully")
     } catch (error) {

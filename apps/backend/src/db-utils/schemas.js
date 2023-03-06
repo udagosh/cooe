@@ -11,7 +11,7 @@ const userSchema = z.object({
         "place": z.string().max(30, {message: "place must be less than 30 characters"}),
         "street_address": z.string().max(100, {message: "address must be less than 100 characters"}),
         "country": z.string().max(74, {message: "place must be less than 30 characters"}),
-    })
+    }).optional()
 })
 
 
