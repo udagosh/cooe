@@ -2,8 +2,7 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Navbar() {
-  const { loginWithRedirect, user, isAuthenticated, isLoading, logout } =
-    useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
   return (
     <>
       <ul className="nav-container">
@@ -23,12 +22,7 @@ function Navbar() {
             </button>
           )}
         </li>
-        <li className="user-name"></li>
       </ul>
-      <div className="user-profile">
-        <h2>{isLoading && "Loading your data.../"}</h2>
-        <h2>{isAuthenticated && "Welcome " + user.name}</h2>
-      </div>
     </>
   );
 }
