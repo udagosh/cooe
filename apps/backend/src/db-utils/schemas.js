@@ -24,7 +24,8 @@ const contractSchema = z.object({
     "wallet_id": z.string(),
     "guess": z.enum(['green','red','blue','0','1','2','3','4','5','6','7','8','9']),
     "bet": z.number().positive().int().min(10,{"message": "minimum bet has to be 10"}),
-    "status": z.enum(['pending','processed'])
+    "status": z.enum(['pending','processed']),
+    "won": z.number().positive().int()
 })
 
 const issueSchema = z.object({
@@ -34,4 +35,4 @@ const issueSchema = z.object({
     "result": z.enum(['green','red','blue','0','1','2','3','4','5','6','7','8','9'])
 })
 
-export {userSchema, walletSchema, contractSchema,issueSchema, walletSchema}
+export {userSchema, walletSchema, contractSchema,issueSchema}

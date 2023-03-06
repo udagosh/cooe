@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // connecting to the datajbase
 try {
-    const {connect} = await import('./dbClient.js')
+    const {connect} = await import('./db-utils/dbClient.js')
     await connect()
     console.info("database connected")
 } catch (error) {

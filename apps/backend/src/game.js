@@ -21,8 +21,6 @@ export default async function runGame(){
                             "status": "freeze"
                         }))
                     }
-    
-    
                     emitter.emit("game", JSON.stringify({
                         "time": `${m}:${s}`
                     }))
