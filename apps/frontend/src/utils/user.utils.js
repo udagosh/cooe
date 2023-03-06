@@ -1,11 +1,10 @@
 async function registerUser(user, token) {
-    console.log(token)
-
+    
     const res = await fetch("http://localhost:5000/user/register", {
         "method": 'POST',
         "headers": {
-            "content-type": "application/json",
-            "authorization":`Bearer ${token}`
+            "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
         },
         "body": JSON.stringify({
             "user_id": user.sub,

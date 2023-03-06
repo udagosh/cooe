@@ -3,14 +3,23 @@ import "./Home.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { registerUser } from "../../../utils/user.utils";
 function Home() {
-  const { getAccessTokenSilently, user } = useAuth0();
 
-  useEffect(() => {
-    console.log(import.meta.env.VITE_AUTH0_API_AUDIENCE)
-    getAccessTokenSilently().then(token => {
-      registerUser(user, token).then(console.log).catch(console.error)
-    }).catch(console.error)
-  }, [getAccessTokenSilently, user]);
+  // const { getAccessTokenSilently, user } = useAuth0();
+  // useEffect(() => {
+  //   (async () => {
+
+  //     if (user) {
+  //       try {
+  //         const token = await getAccessTokenSilently()
+  //         const res = await registerUser(user, token)
+  //         console.log(res)
+  //       } catch (error) {
+  //         console.error(error)
+  //       }
+  //     }
+
+  //   })()
+  // }, [getAccessTokenSilently, user]);
 
   return (
     <>
