@@ -7,4 +7,10 @@ async function saveUser(userObj) {
     await usersCollection.insertOne(user)
 }
 
-export {saveUser}
+
+async function getUser(userId){
+    const usersCollection = client.db("cooe").collection("users")
+    const user = await usersCollection.findOne({"user_id": userId})
+    return user
+}
+export {saveUser,getUser}

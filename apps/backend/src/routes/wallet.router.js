@@ -6,11 +6,12 @@ import ExpressError from '../utils/ExpressError.js'
 
 const walletRouter = express.Router()
 
-walletRouter.post("new", catchAsync(async (req, res) => {
+walletRouter.post("/new", catchAsync(async (req, res) => {
     try {
-        newWallet(req.body.wallet)
+        await newWallet(req.body)
         res.status(201).send("wallet created succesfully")
     } catch (error) {
+        console.error(error)
         throw new ExpressError("invalid wallet",400)
     }
 }))

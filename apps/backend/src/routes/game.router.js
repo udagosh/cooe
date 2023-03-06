@@ -32,4 +32,6 @@ gameRouter.get('/stream',catchAsync(async (req,res) => {
 
 }))
 
+
+
 export default gameRouter

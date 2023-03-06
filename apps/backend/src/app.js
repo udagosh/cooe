@@ -4,7 +4,7 @@ import cors from 'cors'
 import methodOverride from 'method-override'
 import userRouter from './routes/user.router.js'
 import gameRouter from './routes/game.router.js'
-
+import walletRouter from './routes/wallet.router.js'
 const jwtCheck = auth({
     audience: process.env.AUTH0_AUDIENCE,
     issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}/`,
@@ -29,13 +29,15 @@ app.use(express.urlencoded({"extended": false}))
 app.use(methodOverride())
 
 // authorize
-app.use((req,res,next) => {
-    console.info("Authorizing the request")
-    jwtCheck(req,res,next)
-})
+// app.use((req,res,next) => {
+//     console.info("Authorizing the request")
+//     jwtCheck(req,res,next)
+// })
 
-app.use("user", userRouter)
-app.use("game", gameRouter)
+app.use("/wallet", walletRouter)
+app.use("/user", userRouter)
+app.use("/game", gameRouter)
+
 
 app.all('*', next => {
     next(new ExpressError("PAGE NOT FOUND", 404))
@@ -45,7 +47,7 @@ app.all('*', next => {
 
 app.use((err, _, res, __) => {
     const { statusCode = 500, message = "Something went wrong" } = err;
-    res.status(statusCode).render('error', { message });
+    res.status(statusCode).json({'error': message });
 })
 
 
@@ -53,4 +55,4 @@ app.use((err, _, res, __) => {
 
 
 
-export default app;
+export {app};

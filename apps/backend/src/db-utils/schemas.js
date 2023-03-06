@@ -5,19 +5,19 @@ const userSchema = z.object({
     "email": z.string().email(),
     "address": z.object({
         "fullname": z.string().max(30, {message: "name must be less than 30 characters"}),
-        "mobile": z.number().int().positive().finite(),
-        "pincode": z.number().int().positive().finite(),
+        "mobile": z.string(),
+        "zipcode": z.string(),
         "state": z.string().max(30, {message: "state must be less than 30 characters"}),
         "place": z.string().max(30, {message: "place must be less than 30 characters"}),
-        "detail_address": z.string().max(100, {message: "address must be less than 100 characters"})
+        "street_address": z.string().max(100, {message: "address must be less than 100 characters"}),
+        "country": z.string().max(74, {message: "place must be less than 30 characters"}),
     })
 })
 
 
 const walletSchema = z.object({
-    "wallet_id": z.string(),
     "user_id": z.string(),
-    "balance": z.number().nonnegative().int(),
+    "balance": z.number().int().gte(0,{"message": "balance has to be greater than  zero"}),
 })
 
 const contractSchema = z.object({
@@ -32,7 +32,7 @@ const issueSchema = z.object({
     "issue_number": z.number().positive().int(),
     "timestamp": z.number(),
     "status": z.enum(['online', 'offline']),
-    "result": z.enum(['green','red','blue','0','1','2','3','4','5','6','7','8','9'])
+    "result": z.enum(['green','red','blue','0','1','2','3','4','5','6','7','8','9']).optional()
 })
 
 export {userSchema, walletSchema, contractSchema,issueSchema}
