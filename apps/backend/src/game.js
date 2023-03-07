@@ -1,9 +1,8 @@
-import {EventEmitter} from 'node:events'
+import { EventEmitter } from "node:events";
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 
-
-const gameEmitter = new EventEmitter()
+const gameEmitter = new EventEmitter();
 
 // this function starts the game
 // game logic:
@@ -19,7 +18,6 @@ const gameEmitter = new EventEmitter()
 // 10. then starts a next issue
 // 11. before starting any issue, send issue details to the user
 
-
 // user opens a event stream from browser, the route associated with the stream, will listen to gameEmitter,
 // route will stream the game continously to user
 // any message, game wants to send during the game, it will just emit the event and send the event
@@ -32,64 +30,78 @@ const gameEmitter = new EventEmitter()
 
 // game has to be started in index.js file
 // error handling logic has to be placed there
-export default async function runGame(){
-    console.info("starting the game")
-    // get last issue count from the database 
-    var issues = 0
+export default async function runGame() {
+  console.info("starting the game");
+  // get last issue count from the database
+  var issues = 0;
 
-    while (true) {
-        await new Promise((resolve, reject) => {
-            // two varables to track seconds and minutes
-            let s = 0;
-            let m = 0;
-            
-            // 
-            gameEmitter.emit('game',JSON.stringify({
-                "issue": issues
-            }))
+  while (true) {
+    await new Promise((resolve, reject) => {
+      // two varables to track seconds and minutes
+      let s = 0;
+      let m = 0;
 
-            // setting the interval to run for ever second
-            let interval = setInterval(() => {
-                try {
-                    gameEmitter.emit("game", JSON.stringify({
-                        "time": `${m}:${s}`
-                    }))
-                    s = (s + 1) % 60;
-                    if (s == 0) {
-                        m = (m + 1) % 60
-                    }
-                } catch (error) {
-                    reject(error)
-                }
-            }, SECOND);
-
-            // setting the timeout, which runs after 2 minutes, 30 seconds
-            setTimeout(() => {
-                gameEmitter.emit("game",JSON.stringify({
-                    "status": "freeze"
-                }))
-            }, 2*MINUTE+30*SECOND);
-    
-            // setting the timeout, which runs after 3 minutes
-            setTimeout(async () => {
-                try {
-    
-                    clearInterval(interval)
-                    gameEmitter.emit("game", JSON.stringify({
-                        "time": `${m}:${s}`
-                    }))
-    
-                    // an issue is is completed
-                    // process all the contracts    
-                    // make a db request, to create the new issue and send the issue back to the parent
-                    issues = (issues + 1)%480
-                    resolve(issues)
-                } catch (error) {
-                    reject(error)
-                }
-            }, 3 * MINUTE);
+      //
+      gameEmitter.emit(
+        "game",
+        JSON.stringify({
+          issue: issues,
         })
-    }
+      );
+
+      // setting the interval to run for ever second
+      let interval = setInterval(() => {
+        try {
+          gameEmitter.emit(
+            "game",
+            JSON.stringify({
+              time: `${m}:${s}`,
+            })
+          );
+          s = (s + 1) % 60;
+          if (s == 0) {
+            m = (m + 1) % 60;
+          }
+        } catch (error) {
+          reject(error);
+        }
+      }, SECOND);
+
+      // setting the timeout, which runs after 2 minutes, 30 seconds
+      setTimeout(() => {
+        gameEmitter.emit(
+          "game",
+          JSON.stringify({
+            status: "freeze",
+          })
+        );
+        // Algorithms to calculate the resultt will run here
+        // Process all the placed contract.
+      }, 2 * MINUTE + 30 * SECOND);
+
+      // setting the timeout, which runs after 3 minutes
+      setTimeout(async () => {
+        try {
+          clearInterval(interval);
+          gameEmitter.emit(
+            "game",
+            JSON.stringify({
+              time: `${m}:${s}`,
+            })
+          );
+
+          // an issue is is completed
+          // make a db request, to create the new issue and send the issue back to the parent
+          issues = (issues + 1) % 480;
+          // We will send the result of the previous issue.
+          // We will signal them to get the updated wallet balance and contracts are processed.
+          resolve(issues);
+        } catch (error) {
+          reject(error);
+        }
+      }, 3 * MINUTE);
+    });
+  }
 }
 
-export {gameEmitter}
+export { gameEmitter };
