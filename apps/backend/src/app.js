@@ -5,6 +5,8 @@ import userRouter from './routes/user.router.js'
 import gameRouter from './routes/game.router.js'
 import walletRouter from './routes/wallet.router.js'
 import { auth } from "express-oauth2-jwt-bearer";
+import getTimeStamp from './utils/timestamp.js'
+import ExpressError from './utils/ExpressError.js'
 const app = express()
 
 
@@ -21,25 +23,16 @@ app.use(methodOverride())
 
 // logging
 app.use((req, res, next) => {
-    const dt = new Date(Date.now())
-    const date = dt.getDate()
-    const month = dt.getMonth()
-    const year = dt.getFullYear()
-    const hours = dt.getHours()
-    const minutes= dt.getMinutes()
-    const seconds = dt.getSeconds()
-    const stamp = `${date}/${month}/${year} ${hours}:${minutes}:${seconds}` 
-    
-    console.log(`${stamp} ${req.method} ${req.url}`)
+    console.log(`${getTimeStamp()} ${req.method} ${req.url}`)
     next()
 })
 
 // authorize
-app.use(auth({
-    audience: process.env.AUDIENCE,
-    issuerBaseURL: process.env.ISSUER_BASE_URL,
-    tokenSigningAlg: 'RS256'
-}))
+// app.use(auth({
+//     audience: process.env.AUDIENCE,
+//     issuerBaseURL: process.env.ISSUER_BASE_URL,
+//     tokenSigningAlg: 'RS256'
+// }))
 
 // app.use(checkJwt)
 app.use("/wallet", walletRouter)
@@ -48,13 +41,13 @@ app.use("/game", gameRouter)
 
 
 app.all('*', next => {
-    next(new ExpressError("PAGE NOT FOUND", 404))
+    next(new ExpressError("PAGE NOT F   OUND", 404))
 });
 
 
 
 app.use((err, _, res, __) => {
-    const { statusCode = 500, message = "Something went wrong" } = err;
+    const { statusCode = 500, message = "Internal Server Error" } = err;
     res.status(statusCode).json({ 'error': message });
 })
 

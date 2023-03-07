@@ -1,56 +1,48 @@
 import fetch from 'node-fetch'
 import { faker } from "@faker-js/faker";
+import { test } from 'node:test'
+import { userSchema } from '../src/db-utils/schemas.js';
 
-async function testSaveRandomUser() {
-    const res = await fetch("http://localhost:5000/user/register", {
-        "method": 'POST',
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "body": JSON.stringify({
-            "user_id": faker.datatype.uuid(),
-            "email": faker.internet.email(),
-            "address": {
-                "fullname": faker.name.fullName(),
-                "mobile": faker.phone.number('############'),
-                "zipcode": faker.address.zipCode('######'),
-                "state": faker.address.state(),
-                "place": faker.address.city(),
-                "street_address": faker.address.streetAddress(),
-                "country": faker.address.country()
-            }
+test("user tests", () => {
+    test("save random user", async (t) => {
+        const res = await fetch("http://localhost:5000/user", {
+            "method": 'POST',
+            "headers": {
+                'accept': "application/json",
+                "Content-Type": "application/json"
+            },
+            "body": JSON.stringify({
+                "user_id": faker.datatype.uuid(),
+                "email": faker.internet.email(),
+                "address": {
+                    "fullname": faker.name.fullName(),
+                    "mobile": faker.phone.number('############'),
+                    "zipcode": faker.address.zipCode('######'),
+                    "state": faker.address.state(),
+                    "place": faker.address.city(),
+                    "street_address": faker.address.streetAddress(),
+                    "country": faker.address.country()
+                }
+            })
+        }).then(res => {
+            return res.json()
         })
-    }).then(res => {
-        if (!res.ok) {
-            throw new Error("network is not stable")
-        }
-        return res.text()
+
+        userSchema.parse(res)
     })
 
-    console.log(res)
-}
 
+    test("get user", async (t) => {
+        const user = await fetch(`http://localhost:5000/user/${"a565d179-9886-4ecd-ac4c-ccc18b9df3b5"}`, {
+            "method": 'GET',
+            "headers": {
+                'accept': "application/json"
+            }
+        }).then(res => {
+            return res.json()
+        })
 
-async function saveNRandomUsers(n){
-    for (let index = 0; index < n; index++) {
-        await testSaveRandomUser()
-    }
-}
-
-
-async function testGetUser(userId){
-    const user = await fetch(`http://localhost:5000/user/${userId}`,{
-        "method": 'GET',
-        "headers": {
-            'accept': "application/json"
-        }
-    }).then(res => {
-        if (!res.ok) {
-            throw new Error("network is not stable")
-        }
-        return res.json()
+        userSchema.parse(user)
     })
 
-    return user
-}
-console.log(await testGetUser("a565d179-9886-4ecd-ac4c-ccc18b9df3b5"))
+})
