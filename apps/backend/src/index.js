@@ -19,6 +19,7 @@ try {
 }
 
 // starting the game
+// error handling and restarting the game has to be placed here
 // runGame().catch(err => {
 //     console.error(err)
 //     process.exit(1)

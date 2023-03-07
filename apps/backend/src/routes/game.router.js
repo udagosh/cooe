@@ -1,6 +1,6 @@
 import express from 'express'
 import catchAsync from '../utils/catchAsync.js'
-import {emitter as gameEmitter} from '../game.js'
+import { gameEmitter} from '../game.js'
 
 const gameRouter = express.Router()
 

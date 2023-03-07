@@ -27,7 +27,7 @@ app.use((req, res, next) => {
     next()
 })
 
-// authorize
+// authorize the token
 // app.use(auth({
 //     audience: process.env.AUDIENCE,
 //     issuerBaseURL: process.env.ISSUER_BASE_URL,
