@@ -1,7 +1,6 @@
-import { test } from "node:test";
 import assert from 'node:assert'
 import { walletSchema } from "../src/db-utils/schemas.js";
-
+import test from 'ava'
 
 test("create a new wallet", async(t) => {
     const walletObj = {
@@ -19,7 +18,7 @@ test("create a new wallet", async(t) => {
         return res.json()
     })
     const wallet = walletSchema.parse(res, {strip: true})
-    assert.deepStrictEqual(wallet, walletObj)
+    t.deepEqual(wallet, walletObj)
 })
 
 
