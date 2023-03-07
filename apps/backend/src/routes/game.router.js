@@ -1,8 +1,8 @@
 import express from 'express'
 import catchAsync from '../utils/catchAsync.js'
-const gameRouter = express.Router()
 import {emitter as gameEmitter} from '../game.js'
 
+const gameRouter = express.Router()
 
 gameRouter.get('/stream',catchAsync(async (req,res) => {
 
@@ -31,5 +31,7 @@ gameRouter.get('/stream',catchAsync(async (req,res) => {
     }
 
 }))
+
+
 
 export default gameRouter
