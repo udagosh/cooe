@@ -1,7 +1,8 @@
-async function registerUser(user, token) {
+async function getUser(user, token) {
   const res = await fetch("http://localhost:5000/user", {
     method: "POST",
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
@@ -9,11 +10,8 @@ async function registerUser(user, token) {
       user_id: user.sub,
       email: user.email,
     }),
-  }).then((res) => {
-    console.log(res);
-    return res.text();
   });
   return res;
 }
 
-export { registerUser };
+export { getUser };

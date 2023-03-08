@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
-import "./index.css";
+import App from "./App";
 
+import UserState from "./contexts/user-context/UserState";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Auth0Provider
@@ -11,10 +11,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
     authorizationParams={{
       redirect_uri: window.location.origin,
-      "audience": `${import.meta.env.VITE_AUTH0_API_AUDIENCE}`,
+      audience: `${import.meta.env.VITE_AUTH0_API_AUDIENCE}`,
     }}
-
   >
-    <App />
+    <UserState>
+      <App />
+    </UserState>
   </Auth0Provider>
 );
