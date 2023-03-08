@@ -1,0 +1,34 @@
+3 minutes 1 issue, 2 minutes and 30 seconds to order, 30 seconds to show the lottery result. It opens all day. The total number of trade is 480 issues
+If you spend 100 to trade, after deducting 2 service fee, your contract amount is 98:
+1. JOIN GREEN: if the result shows 1,3,7,9, you will get (98*2) 196
+If the result shows 5, you will get (98*1.5) 147
+2. JOIN RED: if the result shows 2,4,6,8, you will get (98*2) 196; If the result shows 0, you will get (98*1.5) 147
+3. JOIN VIOLET: if the result shows 0 or 5, you will get (98*4.5) 441
+4. SELECT NUMBER: if the result is the same as the number you selected, you will get (98*9) 882
+
+
+// game logic:
+// 1. game runs in a while loop
+// 2. each loop runs a single issue
+// 3. each issue runs for 3 minutes
+// 4. first 2:30, user can place any number of contracts
+// 5. last 30 seconds, useer cannot place any more
+// 6. before starting the next issue, result is revelead
+// 7. once issue is completed, game processes all the contracts placed by all users
+// 8. once completed processing the contracts, users are signaled to fetch his contracts and updated wallet balance
+// 9. game waits for 10 seconds
+// 10. then starts a next issue
+// 11. before starting any issue, send issue details to the user
+
+// user opens a event stream from browser, the route associated with the stream, will listen to gameEmitter,
+// route will stream the game continously to user
+// any message, game wants to send during the game, it will just emit the event and send the event
+
+// any error ocuured during the game will terminate the entire game, which inturn terminate the processes itself.
+// we can add logic to restart the game, if it terminates abruptly
+// before restarting, we have to clean the database of all contracts which are alive
+// we have to delete the last live issue from database
+// then we can restart the game
+
+// game has to be started in index.js file
+// error handling logic has to be placed there
