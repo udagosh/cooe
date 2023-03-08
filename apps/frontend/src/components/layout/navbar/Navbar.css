@@ -1,0 +1,32 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: rgb(229, 0, 134);
+}
+
+.navbar .nav-links-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10%;
+  padding: 15px 0;
+}
+
+nav.navbar ul.nav-links-container li.nav-item a,
+button,
+.user-name {
+  color: white;
+  font-size: 16px;
+}
+
+nav.navbar ul.nav-links-container li.nav-item a {
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+}
+
+nav.navbar ul.nav-links-container li.nav-item a svg {
+  font-size: 20px;
+}
