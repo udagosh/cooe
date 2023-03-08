@@ -1,4 +1,4 @@
-import { client } from "./dbClient.js";
+import { client } from "../dbClient.js";
 import { userSchema } from "./schemas.js";
 import ExpressError from '../utils/ExpressError.js'
 

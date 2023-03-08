@@ -10,6 +10,7 @@ import ExpressError from './utils/ExpressError.js'
 const app = express()
 
 
+
 // first check the client origin and headers
 app.use(cors({
     "origin": ['http://localhost:3000']
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
     console.log(`${getTimeStamp()} ${req.method} ${req.url}`)
     next()
 })
+
 
 // authorize the token
 // app.use(auth({

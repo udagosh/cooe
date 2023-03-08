@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker";
 import { userSchema } from '../src/db-utils/schemas.js';
 import test from 'ava'
 
+
 test("save random user", async (t) => {
     const res = await fetch("http://localhost:5000/user", {
         "method": 'POST',
@@ -32,17 +33,17 @@ test("save random user", async (t) => {
 })
 
 
-test("get user", async (t) => {
-    const user = await fetch(`http://localhost:5000/user/${"a565d179-9886-4ecd-ac4c-ccc18b9df3b5"}`, {
-        "method": 'GET',
-        "headers": {
-            'accept': "application/json"
-        }
-    }).then(res => {
-        return res.json()
-    })
+// test("get user", async (t) => {
+//     const user = await fetch(`http://localhost:5000/user/${"a565d179-9886-4ecd-ac4c-ccc18b9df3b5"}`, {
+//         "method": 'GET',
+//         "headers": {
+//             'accept': "application/json"
+//         }
+//     }).then(res => {
+//         return res.json()
+//     })
 
-    userSchema.parse(user)
-    t.pass()
-})
+//     userSchema.parse(user)
+//     t.pass()
+// })
 

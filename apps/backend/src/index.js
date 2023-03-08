@@ -1,22 +1,15 @@
-import path from 'path'
-import runGame from './game.js';
-
 // loading the environment varaiables
-if (process.env.NODE_ENV !== 'production') {
-    const dotenv = await import('dotenv')
-    dotenv.config({
-        "path": path.join(process.cwd(), '.env')
-    })
-}
-
+import runGame from './game.js';
+import connect from './dbClient.js'
 // connecting to the database
+
 try {
-    const {connect} = await import("./db-utils/dbClient.js")
     await connect()
 } catch (error) {
     console.error(error)
     process.exit(1)
 }
+
 
 // starting the game
 // error handling and restarting the game has to be placed here

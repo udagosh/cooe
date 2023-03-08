@@ -1,5 +1,5 @@
 import { walletSchema } from "./schemas.js";
-import { client } from "./dbClient.js";
+import { client } from "../dbClient.js";
 import { getUser } from "./user.util.js";
 import ExpressError from "../utils/ExpressError.js";
 

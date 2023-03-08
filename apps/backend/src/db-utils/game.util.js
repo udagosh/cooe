@@ -1,6 +1,6 @@
 import ExpressError from "../utils/ExpressError.js";
-import { client } from "./dbClient.js";
-import { issueSchema } from "./schemas";
+import { client } from "../dbClient.js";
+import { issueSchema } from "./schemas.js";
 
 
 /**
