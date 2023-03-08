@@ -22,11 +22,13 @@ const walletSchema = z.object({
 
 const contractSchema = z.object({
     "wallet_id": z.string(),
-    "guess": z.enum(['green','red','blue','0','1','2','3','4','5','6','7','8','9']),
+    "guess": z.enum(['green','red','violet','0','1','2','3','4','5','6','7','8','9']),
     "bet": z.number().positive().int().min(10,{"message": "minimum bet has to be 10"}),
     "status": z.enum(['pending','processed']),
-    "won": z.number().positive().int(),
-    "issue_number":z.number().positive().int() 
+    "won": z.number().positive().int().optional(),
+    "issue_number":z.number().positive().int(),
+    "service_fee": z.number().positive().int(),
+    "final_bet": z.number().positive().int()
 })
 
 const issueSchema = z.object({
@@ -34,7 +36,7 @@ const issueSchema = z.object({
     "timestamp": z.string().max(20,{"message": "timestamp cannot be more than 20 characters"}),
     "status": z.enum(['online', 'offline']),
     "number": z.enum(['0','1','2','3','4','5','6','7','8','9']).optional(),
-    "color": z.enum(['green','red','blue']).optional()
+    "color": z.enum(['green','red','violet']).optional()
 })
 
 export {userSchema, walletSchema, contractSchema,issueSchema}

@@ -146,12 +146,98 @@ export async function calculateResult(issueNumber) {
  * process the all placed contracts of the current issue
  * 
  */
-export async function processContracts(issueNumber) {
+
+// 3 minutes 1 issue, 2 minutes and 30 seconds to order, 30 seconds to show the lottery result. It opens all day. The total number of trade is 480 issues
+// If you spend 100 to trade, after deducting 2 service fee, your contract amount is 98:
+// 1. JOIN GREEN: if the result shows 1,3,7,9, you will get (98*2) 196
+// If the result shows 5, you will get (98*1.5) 147
+// 2. JOIN RED: if the result shows 2,4,6,8, you will get (98*2) 196; If the result shows 0, you will get (98*1.5) 147
+// 3. JOIN VIOLET: if the result shows 0 or 5, you will get (98*4.5) 441
+// 4. SELECT NUMBER: if the result is the same as the number you selected, you will get (98*9) 882
+
+export async function processContracts(issueNumber, minNumber,minColor) {
     const issuesCollection = client.db("cooe").collection("issues")
     const contractsCollection = client.db("cooe").collection("contracts")
 
     try {
-        
+        const issue = await issuesCollection.findOne({ issue_number: issueNumber })
+        if (!issue) {
+            throw new ExpressError("no issue found", 400)
+        }
+        if (issue.status == "offline") {
+            throw new ExpressError("issue is offline", 400)
+        }
+        contractsCollection.find({ issue_number: issueNumber }).toArray(async (err, docs) => {
+            if(err){
+                throw err;
+            }
+            const opts = []
+            docs.forEach(doc => {
+                if (doc.guess == minColor) {
+                    if (minColor == 'green') {
+                        if (minNumber in [1,3,7,9]) {
+
+                            opts.push({
+                                updateOne: {
+                                    filter: {"_id": doc._id}, 
+                                    update: {$set: {"won": doc.final_bet *2 }}
+                                }
+                            })
+                        }else if(minNumber == '5'){
+                            opts.push({
+                                updateOne: {
+                                    filter: {"_id": doc._id},
+                                    update: {$set: {"won": doc.final_bet *1.5 }}
+                                    
+                                }
+                            })
+                        }
+                    }else if(minColor == 'red'){
+                        if (minNumber in [2,4,6,8]) {
+                            
+                            opts.push({
+                                updateOne: {
+                                    filter: {"_id": doc._id},
+                                    update: {$set: {"won": doc.final_bet * 2}}
+                                }
+                            })
+                        }else if(minNumber == '0'){
+                            opts.push({
+                                updateOne: {
+                                    filter: {"_id": doc._id},
+                                    update: {$set: {"won": doc.final_bet *1.5 }}
+                                    
+                                }
+                            })
+                        }
+                    }else if(minColor == 'violet'){
+                        if(minNumber == 0 || minNumber == 5){
+                            opts.push({
+                                updateOne: {
+                                    filter: {"_id": doc._id},
+                                    update: {$set: {"won": doc.final_bet *4.5 }}
+                                    
+                                }
+                            })
+                        }
+                    }
+                }else if(doc.guess in ['0','1','2','3','4','5','6','7','8','9']){
+                    
+                        opts.push({
+                            updateOne: {
+                                filter: {"_id": doc._id},
+                                update: {$set: {"won": doc.final_bet * 9}}
+                            }
+                        })
+                    
+                }
+            })
+
+            const results = await contractsCollection.bulkWrite(opts)
+            if (!results.ok) {
+                throw new ExpressError()
+            }
+        })
     } catch (error) {
         throw new ExpressError("invalid user data",400,error)
     }
