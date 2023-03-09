@@ -3,20 +3,21 @@
   top: 0;
   left: 0;
   z-index: 10;
-  background-color: rgb(229, 0, 134);
+  background-color: rgb(236, 20, 146);
 }
 
 .navbar .nav-links-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 10%;
+  column-gap: 7%;
+  /* flex-wrap: wrap; */
   padding: 15px 0;
 }
 
 nav.navbar ul.nav-links-container li.nav-item a,
-button,
-.user-name {
+nav.navbar ul.nav-links-container li.nav-item button,
+nav.navbar ul.nav-links-container li.nav-item.user-name {
   color: white;
   font-size: 16px;
 }

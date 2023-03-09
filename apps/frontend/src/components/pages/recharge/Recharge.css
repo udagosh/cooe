@@ -1,0 +1,91 @@
+:root {
+  --warning: #fb8c00;
+  --white: white;
+  --headerBackgroundColour: #2692be;
+  --RechargebuttonBackgroundColour: #2692be;
+  --pHover: #e0e0e0;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+.warning {
+  padding: 20px 0 15px 20px;
+  background-color: var(--warning);
+  box-shadow: 0 0 10px rgba(15, 0, 0, 0.5);
+  color: var(--white);
+  min-height: 20px;
+  display: flex;
+  font-size: 15px;
+  border-bottom: 3px solid var(--white);
+}
+.Header {
+  margin: 0;
+  padding: 15px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 80px;
+  border-bottom: 4px solid var(--white);
+  background-color: var(--headerBackgroundColour);
+}
+.div1 {
+  display: inline-block;
+}
+
+.div2 {
+  display: inline-block;
+}
+.backButton {
+  background-color: transparent;
+  border: none;
+  color: var(--white);
+  width: 2px;
+}
+.rechargeH {
+  color: var(--white);
+  height: 60px;
+  padding-left: 15px;
+}
+
+.balance {
+  text-align: center;
+  padding: 16px;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 400;
+  letter-spacing: normal;
+  font-family: Roboto, sans-serif;
+}
+
+.RechargeButton {
+  display: block;
+  margin: 30px auto;
+  width: 140px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--RechargebuttonBackgroundColour);
+  font-size: 15px;
+  color: var(--white);
+}
+
+.dropdownButton {
+  width: 100%;
+  padding: 30px;
+  border: none;
+  text-align: start;
+  background-color: transparent;
+}
+
+p {
+  font-size: 17px;
+  width: 100%;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-radius: 10px;
+}
+
+p:hover {
+  background-color: var(--pHover);
+}

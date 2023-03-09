@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
-import { FaUser, FaGamepad, FaHome } from "react-icons/fa";
+import { FaUser, FaGamepad, FaHome, FaMoneyCheck } from "react-icons/fa";
 import { TbDoorEnter, TbDoorExit } from "react-icons/tb";
 
 import "./Navbar.css";
@@ -51,6 +51,11 @@ function Navbar() {
             <li className="nav-item">
               <Link to="/dashboard">
                 <FaUser /> Dashboard
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/recharge">
+                <FaMoneyCheck /> Recharge
               </Link>
             </li>
             {isAuthenticated && (
