@@ -3,7 +3,7 @@ import "./Home.css";
 
 function Home() {
   return (
-    <>
+    <div className="home">
       <div className="amuse-box">
         <h2>amuse box</h2>
       </div>
@@ -82,7 +82,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
