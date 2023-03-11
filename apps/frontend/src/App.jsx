@@ -18,10 +18,10 @@ import Win from "./components/win/Win";
 
 function App() {
   const { getUserInfo } = useContext(userContext);
-  const { getAccessTokenSilently, user } = useAuth0();
-  useEffect(() => {
-    getUserInfo(getAccessTokenSilently, user);
-  }, [getAccessTokenSilently, user]);
+  // const { getAccessTokenSilently, user } = useAuth0();
+  // useEffect(() => {
+  //   getUserInfo(getAccessTokenSilently, user);
+  // }, [getAccessTokenSilently, user]);
   return (
     <div className="app">
       <Router>

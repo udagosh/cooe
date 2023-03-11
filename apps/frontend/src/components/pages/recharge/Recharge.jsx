@@ -17,7 +17,7 @@ function Recharge() {
   const [popState, setpopState] = useState(false);
   const [amount, setAmount] = useState("");
   return (
-    <div id="recharge-page">
+    <div className="recharge-page">
       <div className="Header">
         <div className="div1">
           <button className="backButton" onClick={handleClick}>
