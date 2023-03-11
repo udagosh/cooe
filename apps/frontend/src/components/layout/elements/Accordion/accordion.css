@@ -1,0 +1,67 @@
+:root {
+    --accordionItem: #f9f9f9;
+    --accordionItemHover: #eaeaea;
+    --accordionTitle: #222222;
+    --accordionContent: #555555;
+    --accordionContentOpen: #ffffff;
+  }
+  
+  .faq-accordion {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .faq-accordion-item {
+    background: var(--accordionItem);
+    border-radius: 5px;
+    margin: 10px;
+    padding-right: 0px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    flex: 1 0 calc(50% - 20px);
+    min-width: 100%;
+  }
+  
+  .faq-accordion-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    padding-bottom: 2px;
+    font-weight: bold;
+    color: var(--accordionTitle);
+  }
+  
+  .faq-accordion-item:hover {
+    background: var(--accordionItemHover);
+  }
+  
+  .faq-accordion-title span {
+    flex: 1;
+  }
+  
+  .faq-accordion-content {
+    padding: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+  }
+  
+  .faq-accordion-content p {
+    margin: 0;
+    color: var(--accordionContent);
+    font-size: 14px;
+  }
+  
+  .faq-accordion-content.open {
+    max-height: 100px;
+    padding: 10px;
+    margin: 10px 0;
+    background: var(--accordionContentOpen);
+    border-radius: 0 0 5px 5px;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+  }
+  
