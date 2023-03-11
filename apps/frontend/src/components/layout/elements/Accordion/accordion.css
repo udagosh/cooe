@@ -4,6 +4,7 @@
   --accordionTitle: #222222;
   --accordionContent: #555555;
   --accordionContentOpen: #ffffff;
+  --nav-item-border: rgb(238, 235, 235);
 }
 
 .faq-accordion {
@@ -15,7 +16,6 @@
 
 .faq-accordion-item {
   background: var(--accordionItem);
-  padding-right: 0px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   flex: 1 0 calc(50% - 20px);
@@ -27,12 +27,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  padding-bottom: 2px;
   color: var(--accordionTitle);
+  padding: 10px 10px 10px 10px;
 }
 
-.faq-accordion-item:hover {
+.faq-accordion-title:hover {
   background: var(--accordionItemHover);
 }
 
@@ -40,11 +39,11 @@
   display: none;
   transition: all 0.3s ease-in-out;
   opacity: 0;
+  padding: 10px 10px 10px 10px;
 }
 
 .faq-accordion-content.open {
   display: block;
-  padding: 30px;
   opacity: 1;
   transition: all 0.3s ease-in-out;
 }

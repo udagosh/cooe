@@ -26,12 +26,14 @@ function FaqAccordion(props) {
       <div className="faq-accordion-item">
         <div className="faq-accordion-title" onClick={handleAccordionClick}>
           {props.title}
-          {!isOpen ? <FaAngleDown /> : <FaAngleUp />}
+          {props.children && (!isOpen ? <FaAngleDown /> : <FaAngleUp />)}
         </div>
 
-        <div className={`faq-accordion-content ${isOpen ? "open" : ""}`}>
-          {props.children}
-        </div>
+        {props.children && (
+          <div className={`faq-accordion-content ${isOpen ? "open" : ""}`}>
+            {props.children}
+          </div>
+        )}
       </div>
     </div>
   );

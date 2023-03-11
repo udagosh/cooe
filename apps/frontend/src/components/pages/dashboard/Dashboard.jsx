@@ -6,20 +6,27 @@ import {
   FaGripLines,
   FaTasks,
   FaWallet,
-  FaAddressCard
+  FaAddressCard,
+  FaHome,
 } from "react-icons/fa";
 import { AiFillLock, AiTwotoneBank } from "react-icons/ai";
 import { BiMessageDetail } from "react-icons/bi";
 import FaqAccordion from "../../layout/elements/Accordion/accordion";
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
-const ProfileNavItem = ({ name, icon, toggleId, setToggleId, accordionId }) => {
+const ProfileNavItem = ({
+  name,
+  icon,
+  toggleId,
+  setToggleId,
+  accordionId,
+  links,
+}) => {
   const title = (
-    <div className="profile-nav-item">
-      <div className="profile-nav-item-content">
-        {icon}
-        <span>{name}</span>
-      </div>
+    <div className="profile-nav-item-title">
+      <span>{icon}</span>
+      <span>{name}</span>
     </div>
   );
   return (
@@ -29,8 +36,18 @@ const ProfileNavItem = ({ name, icon, toggleId, setToggleId, accordionId }) => {
       toggleId={toggleId}
       title={title}
     >
-      {" "}
-      this is a accordion content
+      {links && (
+        <div className="profile-nav-nested-links">
+          {links.map((linkobj) => {
+            return (
+              <Link to={linkobj.link}>
+                <span>{linkobj.icon}</span>
+                <span>{linkobj.name}</span>
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </FaqAccordion>
   );
 };
@@ -80,12 +97,17 @@ const Dashboard = () => {
           setToggleId={setToggleId}
           accordionId="Acc1"
         />
+
         <ProfileNavItem
           name={"Wallet"}
           icon={<FaWallet />}
           toggleId={toggleId}
           setToggleId={setToggleId}
           accordionId="Acc2"
+          links={[
+            { name: "Home", link: "/", icon: <FaHome /> },
+            { name: "Win", link: "/win", icon: <FaHome /> },
+          ]}
         />
         <ProfileNavItem
           name={"Bank Card"}
@@ -93,6 +115,10 @@ const Dashboard = () => {
           toggleId={toggleId}
           setToggleId={setToggleId}
           accordionId="Acc3"
+          links={[
+            { name: "Home", link: "/", icon: <FaHome /> },
+            { name: "Win", link: "/win", icon: <FaHome /> },
+          ]}
         />
         <ProfileNavItem
           name={"Address"}
@@ -107,17 +133,25 @@ const Dashboard = () => {
           toggleId={toggleId}
           setToggleId={setToggleId}
           accordionId="Acc5"
+          links={[
+            { name: "Home", link: "/", icon: <FaHome /> },
+            { name: "Win", link: "/win", icon: <FaHome /> },
+          ]}
         />
         <ProfileNavItem
           name={"Complaints & Suggestions"}
           icon={<BiMessageDetail />}
           toggleId={toggleId}
           setToggleId={setToggleId}
-          accordionId="Acc5"
+          accordionId="Acc6"
         />
-        <ProfileNavItem name={"About"} icon={<BiMessageDetail />} toggleId={toggleId}
+        <ProfileNavItem
+          name={"About"}
+          icon={<BiMessageDetail />}
+          toggleId={toggleId}
           setToggleId={setToggleId}
-          accordionId="Acc5"/>
+          accordionId="Acc7"
+        />
       </div>
     </div>
   );

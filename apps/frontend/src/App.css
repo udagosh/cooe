@@ -18,5 +18,9 @@
 }
 
 .protect-header {
-  height: 80px;
+  height: 70px;
+}
+
+svg {
+  display: block;
 }
