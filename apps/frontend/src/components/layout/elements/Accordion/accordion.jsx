@@ -30,7 +30,7 @@ function FaqAccordion(props) {
         </div>
 
         <div className={`faq-accordion-content ${isOpen ? "open" : ""}`}>
-          <p>{props.children}</p>
+          {props.children}
         </div>
       </div>
     </div>

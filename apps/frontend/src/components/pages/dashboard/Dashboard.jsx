@@ -6,29 +6,37 @@ import {
   FaGripLines,
   FaTasks,
   FaWallet,
-  FaAddressCard,
+  FaAddressCard
 } from "react-icons/fa";
-import { GoTriangleDown } from "react-icons/go";
 import { AiFillLock, AiTwotoneBank } from "react-icons/ai";
 import { BiMessageDetail } from "react-icons/bi";
+import FaqAccordion from "../../layout/elements/Accordion/accordion";
+import React, { useState } from "react";
 
-const ProfileNavItem = ({ name, icon }) => {
-  return (
+const ProfileNavItem = ({ name, icon, toggleId, setToggleId, accordionId }) => {
+  const title = (
     <div className="profile-nav-item">
       <div className="profile-nav-item-content">
         {icon}
         <span>{name}</span>
       </div>
-      <div className="profile-nested-menu">
-        <div className="profile-nested-menu-icon">
-          <GoTriangleDown />
-        </div>
-      </div>
     </div>
+  );
+  return (
+    <FaqAccordion
+      accordionId={accordionId}
+      setToggleId={setToggleId}
+      toggleId={toggleId}
+      title={title}
+    >
+      {" "}
+      this is a accordion content
+    </FaqAccordion>
   );
 };
 
 const Dashboard = () => {
+  const [toggleId, setToggleId] = useState("");
   return (
     <div className="dashboard">
       <div className="profile-upper-sectiion">
@@ -65,16 +73,51 @@ const Dashboard = () => {
       </div>
 
       <div className="profile-navigation-section">
-        <ProfileNavItem name={"Orders"} icon={<FaTasks />} />
-        <ProfileNavItem name={"Wallet"} icon={<FaWallet />} />
-        <ProfileNavItem name={"Bank Card"} icon={<AiTwotoneBank />} />
-        <ProfileNavItem name={"Address"} icon={<FaAddressCard />} />
-        <ProfileNavItem name={"Account Security"} icon={<AiFillLock />} />
+        <ProfileNavItem
+          name={"Orders"}
+          icon={<FaTasks />}
+          toggleId={toggleId}
+          setToggleId={setToggleId}
+          accordionId="Acc1"
+        />
+        <ProfileNavItem
+          name={"Wallet"}
+          icon={<FaWallet />}
+          toggleId={toggleId}
+          setToggleId={setToggleId}
+          accordionId="Acc2"
+        />
+        <ProfileNavItem
+          name={"Bank Card"}
+          icon={<AiTwotoneBank />}
+          toggleId={toggleId}
+          setToggleId={setToggleId}
+          accordionId="Acc3"
+        />
+        <ProfileNavItem
+          name={"Address"}
+          icon={<FaAddressCard />}
+          toggleId={toggleId}
+          setToggleId={setToggleId}
+          accordionId="Acc4"
+        />
+        <ProfileNavItem
+          name={"Account Security"}
+          icon={<AiFillLock />}
+          toggleId={toggleId}
+          setToggleId={setToggleId}
+          accordionId="Acc5"
+        />
         <ProfileNavItem
           name={"Complaints & Suggestions"}
           icon={<BiMessageDetail />}
+          toggleId={toggleId}
+          setToggleId={setToggleId}
+          accordionId="Acc5"
         />
-        <ProfileNavItem name={"About"} icon={<BiMessageDetail />} />
+        <ProfileNavItem name={"About"} icon={<BiMessageDetail />} toggleId={toggleId}
+          setToggleId={setToggleId}
+          accordionId="Acc5"/>
       </div>
     </div>
   );
