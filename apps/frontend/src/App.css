@@ -16,3 +16,7 @@
   background-color: transparent;
   outline: none;
 }
+
+.protect-header {
+  height: 80px;
+}

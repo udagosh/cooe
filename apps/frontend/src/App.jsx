@@ -26,6 +26,7 @@ function App() {
     <div className="app">
       <Router>
         <Navbar />
+        <div className="protect-header"></div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/win" element={<Win />} />

@@ -1,5 +1,10 @@
 import { EventEmitter } from "node:events";
-import { calculateResult, getLastIssue, newIssue, processContracts } from "./db-utils/game.util.js";
+import {
+  calculateResult,
+  getLastIssue,
+  newIssue,
+  processContracts,
+} from "./db-utils/game.util.js";
 import ExpressError from "./utils/ExpressError.js";
 import getTimeStamp from "./utils/timestamp.js";
 const SECOND = 1000;
@@ -7,10 +12,7 @@ const MINUTE = 60 * SECOND;
 
 const gameEmitter = new EventEmitter();
 
-
-
-
-async function runEverySecond(gameEmitter, reject,minutes,seconds){
+async function runEverySecond(gameEmitter, reject, minutes, seconds) {
   try {
     gameEmitter.emit(
       "game",
@@ -37,12 +39,19 @@ async function runBeforeFreeze(gameEmitter) {
 
   // Algorithms to calculate the resultt will run here
   // Process all the placed contract.
-  const {number, color} = await calculateResult(issueNumber)
-  await processContracts(issueNumber,number, color)
-  
+  const { number, color } = await calculateResult(issueNumber);
+  await processContracts(issueNumber, number, color);
 }
 
-async function runAfterInterval(gameEmitter,resolve,reject,minutes,seconds,interval,issueNumber) {
+async function runAfterInterval(
+  gameEmitter,
+  resolve,
+  reject,
+  minutes,
+  seconds,
+  interval,
+  issueNumber
+) {
   try {
     clearInterval(interval);
     gameEmitter.emit(
@@ -53,13 +62,12 @@ async function runAfterInterval(gameEmitter,resolve,reject,minutes,seconds,inter
     );
     // an issue is is completed
     // make a db request, to create the new issue and send the issue back to the parent
-    issueNumber =await newIssue({
-      "issue_number": issueNumber+1,
-      "status": "open",
-      "time_stamp": getTimeStamp(),
-    })
+    issueNumber = await newIssue({
+      issue_number: issueNumber + 1,
+      status: "open",
+      time_stamp: getTimeStamp(),
+    });
 
-    
     // We will send the result of the previous issue.
     // We will signal them to get the updated wallet balance and contracts are processed.
     resolve(issueNumber);
@@ -74,13 +82,13 @@ export default async function runGame() {
   let issueNumber = await getLastIssue();
   if (issueNumber == null) {
     issueNumber = await newIssue({
-      "issue_number": 1,
-      "status": "open",
-      "time_stamp": getTimeStamp(),
-    })
+      issue_number: 1,
+      status: "open",
+      time_stamp: getTimeStamp(),
+    });
 
     if (issueNumber == null) {
-      throw new ExpressError()
+      throw new ExpressError();
     }
   }
   while (true) {
@@ -95,14 +103,27 @@ export default async function runGame() {
         })
       );
       // setting the interval to run for every second
-      let interval = setInterval(runEverySecond(gameEmitter,reject,minutes,seconds), SECOND);
+      let interval = setInterval(
+        runEverySecond(gameEmitter, reject, minutes, seconds),
+        SECOND
+      );
       // setting the timeout, which runs after 2 minutes, 30 seconds
       setTimeout(runBeforeFreeze(gameEmitter), 2 * MINUTE + 30 * SECOND);
       // setting the timeout, which runs after 3 minutes
-      setTimeout(runAfterInterval(gameEmitter,resolve,reject,minutes,seconds,interval,issueNumber), 3 * MINUTE);
+      setTimeout(
+        runAfterInterval(
+          gameEmitter,
+          resolve,
+          reject,
+          minutes,
+          seconds,
+          interval,
+          issueNumber
+        ),
+        3 * MINUTE
+      );
     });
   }
 }
-
 
 export { gameEmitter };
