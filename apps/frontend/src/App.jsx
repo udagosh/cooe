@@ -15,6 +15,7 @@ import userContext from "./contexts/user-context/userContext";
 
 // Importing the Win game
 import Win from "./components/win/Win";
+import OrderList from "./components/pages/orderlist/OrderList";
 
 function App() {
   const { getUserInfo } = useContext(userContext);
@@ -32,6 +33,7 @@ function App() {
           <Route path="/win" element={<Win />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/recharge" element={<Recharge />} />
+          <Route path="/OrderList" element={<OrderList />} />
         </Routes>
       </Router>
     </div>
