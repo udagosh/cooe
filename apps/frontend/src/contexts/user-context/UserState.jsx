@@ -17,7 +17,6 @@ function UserState(props) {
       try {
         const token = await getAccessTokenSilently();
         const res = await getUser(user, token);
-        // console.log(res);
       } catch (error) {
         console.error(error);
       }

@@ -84,7 +84,7 @@ table {
   border-collapse: collapse;
 }
 
-table :hover {
+table tr:hover {
   background-color: rgb(202, 189, 189);
 }
 

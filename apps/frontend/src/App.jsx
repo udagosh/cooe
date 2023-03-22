@@ -1,41 +1,25 @@
 import React, { useEffect, useContext } from "react";
 import "./App.css";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/layout/navbar/Navbar";
-
-// Importing the pages
-import Home from "./components/pages/home/Home";
-import Dashboard from "./components/pages/dashboard/Dashboard";
-import Recharge from "./components/pages/recharge/Recharge";
-
+import Router from "./Router";
 // Importing the user authentication configuration
 import { useAuth0 } from "@auth0/auth0-react";
 import userContext from "./contexts/user-context/userContext";
 
-// Importing the Win game
-import Win from "./components/win/Win";
-import OrderList from "./components/pages/orderlist/OrderList";
-
 function App() {
+  if (!navigator.onLine) {
+    return <h1>Please stay onLine to access this application</h1>;
+  }
   const { getUserInfo } = useContext(userContext);
-  // const { getAccessTokenSilently, user } = useAuth0();
-  // useEffect(() => {
-  //   getUserInfo(getAccessTokenSilently, user);
-  // }, [getAccessTokenSilently, user]);
+  const { getAccessTokenSilently, user, isLoading } = useAuth0();
+  useEffect(() => {
+    if (!isLoading) {
+      getUserInfo(getAccessTokenSilently, user);
+    }
+  }, [getAccessTokenSilently, user]);
   return (
     <div className="app">
-      <Router>
-        <Navbar />
-        <div className="protect-header"></div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/win" element={<Win />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/recharge" element={<Recharge />} />
-          <Route path="/OrderList" element={<OrderList />} />
-        </Routes>
-      </Router>
+      <Router />
     </div>
   );
 }
