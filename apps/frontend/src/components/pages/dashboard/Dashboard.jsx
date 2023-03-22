@@ -10,7 +10,6 @@ import {
   FaHome,
 } from "react-icons/fa";
 import { AiFillLock, AiTwotoneBank } from "react-icons/ai";
-import { BiMessageDetail } from "react-icons/bi";
 import FaqAccordion from "../../layout/elements/Accordion/accordion";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
@@ -38,9 +37,9 @@ const ProfileNavItem = ({
     >
       {links && (
         <div className="profile-nav-nested-links">
-          {links.map((linkobj) => {
+          {links.map((linkobj, index) => {
             return (
-              <Link to={linkobj.link}>
+              <Link to={linkobj.link} key={index}>
                 <span>{linkobj.icon}</span>
                 <span>{linkobj.name}</span>
               </Link>
@@ -137,20 +136,6 @@ const Dashboard = () => {
             { name: "Home", link: "/", icon: <FaHome /> },
             { name: "Win", link: "/win", icon: <FaHome /> },
           ]}
-        />
-        <ProfileNavItem
-          name={"Complaints & Suggestions"}
-          icon={<BiMessageDetail />}
-          toggleId={toggleId}
-          setToggleId={setToggleId}
-          accordionId="Acc6"
-        />
-        <ProfileNavItem
-          name={"About"}
-          icon={<BiMessageDetail />}
-          toggleId={toggleId}
-          setToggleId={setToggleId}
-          accordionId="Acc7"
         />
       </div>
     </div>

@@ -38,11 +38,13 @@ App.use(express.json());
 // Authentication middleware
 App.use(jwtCheck);
 
+App.use(errorMiddleware);
+
+// Routes for application
+
 App.use("/order", orderroutes);
 App.post("/order/create", GameInstance.createContract);
 App.use("/user", userroutes);
-
-App.use(errorMiddleware);
 
 GameInstance.provideIo(io);
 io.on("connection", (socket) => {

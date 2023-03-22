@@ -3,7 +3,7 @@ import Contract from "./contract.js";
 class Game extends Contract {
   period_id = 1;
   seconds = 60;
-  minutes = 0;
+  minutes = 2;
   contractStatus = true;
 
   // Provide io method
