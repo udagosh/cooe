@@ -1,19 +1,18 @@
+import axios from "axios";
 async function getUser(user, token) {
-  const res = await fetch("http://localhost:8000/user/create", {
+  const res = axios.post("http://localhost:8000/user/create", {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       userId: user.sub,
       user_email: user.email,
     }),
   });
-  const data = await res.json();
-  console.log(data);
-  return data;
+  return res;
 }
 
 export { getUser };

@@ -8,7 +8,6 @@ function Win() {
       console.log("Minutes : " + data.min, "Seconds : " + data.sec);
     };
     Socket.on("timer", handleTimer);
-    console.log(Socket.connected);
   }, []);
 
   return (
