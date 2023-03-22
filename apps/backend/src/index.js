@@ -1,24 +1,21 @@
-// loading the environment varaiables
-import runGame from "./game.js";
-import connect from "./dbClient.js";
-// connecting to the database
+import dotenv from "dotenv";
+import db_connect from "./db_utils/db_connect.js";
+import server from "./server.js";
+import { GameInstance } from "./server.js";
+dotenv.config();
 
-try {
-  await connect();
-} catch (error) {
-  console.error(error);
-  process.exit(1);
-}
-
-// starting the game
-// error handling and restarting the game has to be placed here
-runGame().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
-
-// starting the app
-const { app } = await import("./app.js");
-app.listen(process.env.PORT, () => {
-  console.log(`listening on port ${process.env.PORT}`);
-});
+const serverIntializer = async () => {
+  try {
+    await db_connect();
+    GameInstance.game();
+    server.listen(process.env.SERVER_PORT, process.env.SERVER_NAME, () => {
+      console.log(
+        `App is running on http://${process.env.SERVER_NAME}:${process.env.SERVER_PORT}`
+      );
+    });
+  } catch (error) {
+    console.log(error);
+    process.exit(0);
+  }
+};
+serverIntializer();
