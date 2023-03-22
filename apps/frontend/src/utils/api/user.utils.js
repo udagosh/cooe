@@ -1,6 +1,6 @@
 import axios from "axios";
 async function getUser(user, token) {
-  const res = axios.post("http://localhost:8000/user/create", {
+  const options = {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -11,7 +11,11 @@ async function getUser(user, token) {
       userId: user.sub,
       user_email: user.email,
     }),
-  });
+  };
+  // const res = await axios.post("http://127.0.0.1:8000/user/create", options);
+  const rawres = await fetch("http://localhost:8000/user/create", options);
+  const res = await rawres.json();
+  console.log(res);
   return res;
 }
 
