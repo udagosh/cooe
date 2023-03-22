@@ -17,7 +17,11 @@ import errorMiddleware from "./middlewares/Error.js";
 
 const App = express();
 const server = http.createServer(App);
-const io = new socketServer(server);
+const io = new socketServer(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
 
 // const jwtCheck = auth({
 //   audience: "http://cooe/api",
