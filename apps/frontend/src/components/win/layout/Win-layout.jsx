@@ -1,7 +1,6 @@
 import React from "react";
 import "./win-layout.css";
-
-const WinLayout = () => {
+const WinLayout = ({ timer }) => {
   return (
     <div className="win">
       <div className="top-bar">
@@ -14,7 +13,10 @@ const WinLayout = () => {
           <i className=" refreshIcon fa-solid fa-arrows-rotate"></i>
         </span>
       </div>
-
+      <div className="timer">
+        <span className="min">Min: {timer.min} </span>
+        <span className="sec">Seconds: {timer.sec}</span>
+      </div>
       <div className="record">
         <span className="trophyIcon">
           <i className="fa-sharp fa-solid fa-trophy"></i>
