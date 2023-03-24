@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const UserSchema = mongoose.Schema({
   userId: { type: String, required: true },
-  user_email: { type: String, required: true },
   nickName: { type: String },
   mobile: { type: Number },
   availableBalance: { type: mongoose.Types.Decimal128, default: 0.0 },
