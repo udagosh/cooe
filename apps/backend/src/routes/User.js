@@ -1,10 +1,11 @@
 import express from "express";
-import { getAllUsers, createUser } from "../controllers/User.js";
+import { getAllUsers, createUser, updateUser } from "../controllers/User.js";
 
-import {validateUser} from "../middlewares/userValidator.js"
+import {validateCreateUser, validateUpdateUser} from "../middlewares/userValidator.js"
 
 const router = express.Router();
 router.get("/get", getAllUsers);
-router.post("/create",validateUser, createUser);
+router.post("/create",validateCreateUser, createUser);
+router.patch("/update/:id",validateUpdateUser, updateUser)
 
 export default router;
