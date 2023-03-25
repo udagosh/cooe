@@ -10,6 +10,11 @@ export const getAllUsers = catchAsyncError(async (req, res, next) => {
 export const createUser = catchAsyncError(async (req, res, next) => {
   const userData = req.body;
 
+  const existinguser = await User.findOne({ userId: userData.userId });
+  if (existinguser) {
+    return res.status(200).json({ message: "User exist", existinguser });
+  }
+
   const addedUser = new User(userData);
   await addedUser.save();
   res.status(200).json({ message: "User created successfully", addedUser });

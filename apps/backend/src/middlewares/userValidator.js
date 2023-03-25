@@ -6,15 +6,6 @@ export const validateCreateUser = [
   body("userId")
     .not()
     .isEmpty()
-    .custom((value) => {
-      return User.find({
-        userId: value,
-      }).then((user) => {
-        if (user.length > 0) {
-          return Promise.reject("Username already in use");
-        }
-      });
-    })
     .trim()
     .escape(),
   (req, res, next) => {
