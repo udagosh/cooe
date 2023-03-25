@@ -1,96 +1,23 @@
 .navbar {
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  column-gap: 40px;
-  padding: 15px 0;
-  color: white;
+  position: sticky;
+  bottom: 0px;
   background-color: var(--primary);
 }
 
-.navbar .primary-menu-container {
+.navbar .nav-links {
   display: flex;
-  column-gap: 30px;
-}
-
-.navbar .primary-menu-container .nav-toggle-btn {
-  display: none;
-  margin-left: 10px;
-}
-
-.navbar .primary-menu-container .nav-toggle-btn svg {
-  font-size: 28px;
-  color: white;
-}
-
-.navbar .nav-links-container {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  column-gap: 40px;
-}
-
-.navbar .nav-links-container li.nav-item a,
-.navbar .nav-links-container li.nav-item button {
-  display: flex;
   align-items: center;
-  column-gap: 10px;
-  color: white;
+  column-gap: 20%;
+  padding: 12px 0;
+}
+
+.navbar .nav-links a,
+button {
   font-size: 16px;
+  color: white;
 }
 
-.navbar .nav-links-container li.nav-item a svg {
-  font-size: 20px;
-}
-
-/* Responsive styling for navbar  */
-@media screen and (max-width: 1000px) {
-  .secondry-menu.nav-links-container {
-    display: none;
-  }
-  .secondry-menu.nav-links-container.open {
-    display: flex;
-  }
-  .navbar {
-    height: 100vh;
-    display: block;
-    padding: 0;
-    background-color: transparent;
-  }
-
-  .navbar .primary-menu-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-    padding: 15px 0;
-    background-color: var(--primary);
-  }
-
-  .navbar .secondry-menu.nav-links-container {
-    height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    flex-direction: column;
-    row-gap: 20px;
-    align-items: flex-start;
-    padding: 0 15px;
-    background-color: var(--secondry);
-  }
-  nav.navbar .cover-screen {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-  }
-  .navbar .primary-menu-container .nav-toggle-btn {
-    display: block;
-  }
+.navbar .nav-links a svg {
+  font-size: 25px;
 }

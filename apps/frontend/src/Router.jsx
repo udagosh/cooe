@@ -16,7 +16,6 @@ import OrderList from "./components/pages/orderlist/OrderList";
 function AppRouter() {
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/win" element={<Win />} />
@@ -24,6 +23,7 @@ function AppRouter() {
         <Route path="/recharge" element={<Recharge />} />
         <Route path="/OrderList" element={<OrderList />} />
       </Routes>
+      <Navbar />
     </Router>
   );
 }
