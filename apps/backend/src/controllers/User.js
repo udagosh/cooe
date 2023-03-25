@@ -12,12 +12,12 @@ export const createUser = catchAsyncError(async (req, res, next) => {
 
   const existinguser = await User.findOne({ userId: userData.userId });
   if (existinguser) {
-    return res.status(200).json({ message: "User exist", existinguser });
+    return res.status(200).json({ user: existinguser });
   }
 
   const addedUser = new User(userData);
   await addedUser.save();
-  res.status(200).json({ message: "User created successfully", addedUser });
+  res.status(200).json({ user: addedUser });
 });
 
 export const updateUser = catchAsyncError(async (req, res, next) => {
