@@ -24,79 +24,77 @@ function Navbar() {
     }
     setNavState(true);
   };
-  const { loginWithRedirect, isAuthenticated, logout, isLoading, user } =
+  const { loginWithRedirect, loginWithPopup, isAuthenticated, logout, user } =
     useAuth0();
   return (
     <>
-      {!isLoading && (
-        <nav className="navbar">
-          {navState && <div className="cover-screen" onClick={toggleNav}></div>}
-          <div className="primary-menu-container">
-            <div className="nav-toggle-btn">
-              <button onClick={toggleNav}>
-                {navState ? <RxCrossCircled /> : <FaBars />}
-              </button>
-            </div>
-            <ul className="nav-links-container primary-menu">
-              {isAuthenticated && (
-                <li className="nav-item user-name">
-                  <span>Hello, </span>
-                  {user.name}
-                </li>
-              )}
-              <li className="nav-item">
-                <Link to="/dashboard">
-                  <FaUser /> Dashboard
-                </Link>
-              </li>
-              <li className="nav-item">
-                {!isAuthenticated ? (
-                  <button
-                    className="login-btn"
-                    onClick={() => loginWithRedirect()}
-                  >
-                    <TbDoorEnter />
-                    Login
-                  </button>
-                ) : (
-                  <button
-                    className="logout"
-                    onClick={() =>
-                      logout({
-                        logoutParams: { returnTo: window.location.origin },
-                      })
-                    }
-                  >
-                    <TbDoorExit /> Logout
-                  </button>
-                )}
-              </li>
-            </ul>
+      <nav className="navbar">
+        {navState && <div className="cover-screen" onClick={toggleNav}></div>}
+        <div className="primary-menu-container">
+          <div className="nav-toggle-btn">
+            <button onClick={toggleNav}>
+              {navState ? <RxCrossCircled /> : <FaBars />}
+            </button>
           </div>
-          <ul
-            className={
-              "secondry-menu nav-links-container" + (navState ? " open" : "")
-            }
-          >
+          <ul className="nav-links-container primary-menu">
+            {isAuthenticated && (
+              <li className="nav-item user-name">
+                <span>Hello, </span>
+                {user.name}
+              </li>
+            )}
             <li className="nav-item">
-              <Link to="/">
-                <FaHome /> Home
+              <Link to="/dashboard">
+                <FaUser /> Dashboard
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/win">
-                <FaGamepad />
-                Win
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/recharge">
-                <FaMoneyCheck /> Recharge
-              </Link>
+              {!isAuthenticated ? (
+                <button
+                  className="login-btn"
+                  onClick={() => loginWithRedirect()}
+                >
+                  <TbDoorEnter />
+                  Login
+                </button>
+              ) : (
+                <button
+                  className="logout"
+                  onClick={() =>
+                    logout({
+                      logoutParams: { returnTo: window.location.origin },
+                    })
+                  }
+                >
+                  <TbDoorExit /> Logout
+                </button>
+              )}
             </li>
           </ul>
-        </nav>
-      )}
+        </div>
+        <ul
+          className={
+            "secondry-menu nav-links-container" + (navState ? " open" : "")
+          }
+        >
+          <li className="nav-item">
+            <Link to="/">
+              <FaHome /> Home
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/win">
+              <FaGamepad />
+              Win
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/recharge">
+              <FaMoneyCheck /> Recharge
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </>
   );
 }
